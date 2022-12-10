@@ -10,7 +10,7 @@
     "strictNullChecks": true,
     "resolveJsonModule": true,
     "jsx": "react-jsx",
-
+    "types": ["gapi", "gapi.auth2"],
   },
   "include": ["src/utils/type.d.ts", "./src/index.d.ts", "src/**/*.ts",
   "src/**/*.tsx"],
