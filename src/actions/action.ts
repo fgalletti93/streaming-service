@@ -5,10 +5,11 @@ export enum GoogleAuthActionsTypes {
 
 type SignIn = {
   type: GoogleAuthActionsTypes.SIGN_IN;
+  payload: number;
 };
 
 type SignOut = {
   type: GoogleAuthActionsTypes.SIGN_OUT;
 };
 
-export type GoogleAuthActions = SignIn | SignOut
+export type GoogleAuthActions = SignIn | SignOut;

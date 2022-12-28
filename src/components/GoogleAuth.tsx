@@ -1,12 +1,17 @@
 import React, { ReactElement, useCallback, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { signIn, signOut } from "../actions";
+import { GoogleAuthState } from "../reducers/types";
 
 const GoogleAuth = ({ isSignedIn, signIn, signOut }): ReactElement => {
   let auth = useRef<any>()
 
-  const onAuthChange = useCallback((isSignedIn): void => {
-    isSignedIn ? signIn() : signOut()
+  const onAuthChange = useCallback((isSignedIn: boolean): void => {
+    if (isSignedIn) {
+      signIn(auth.current.currentUser.get().getId())
+    } else {
+      signOut()
+    }
   }, [signIn, signOut])
 
   useEffect(() => {
@@ -18,7 +23,7 @@ const GoogleAuth = ({ isSignedIn, signIn, signOut }): ReactElement => {
       }).then(() => {
         auth.current = window.gapi.auth2.getAuthInstance();
         onAuthChange(auth.current.isSignedIn.get());
-        return auth.current.isSignedIn.listen(onAuthChange)  //not sure why I needed this return 
+        return auth.current.isSignedIn.listen(onAuthChange)
       });
     });
 
@@ -33,7 +38,10 @@ const GoogleAuth = ({ isSignedIn, signIn, signOut }): ReactElement => {
   }
 
   const renderAuthButton = (): JSX.Element | null => {
-    if (isSignedIn) {
+    if (isSignedIn === null) {
+      return null;
+    }
+    else if (isSignedIn) {
       return (
         <button onClick={onSignOutClick} className="ui red google button">
           <i className="google icon" />
@@ -55,8 +63,7 @@ const GoogleAuth = ({ isSignedIn, signIn, signOut }): ReactElement => {
   )
 }
 
-const mapStateToProps = (state) => {
-  console.log(state)
+const mapStateToProps = (state): GoogleAuthState => {
   return { isSignedIn: state.auth.isSignedIn }
 }
 

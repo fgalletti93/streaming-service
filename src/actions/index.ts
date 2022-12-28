@@ -1,11 +1,14 @@
-export const signIn = () => {
+import { GoogleAuthActionsTypes } from "./action";
+
+export const signIn = (userId) => {
   return {
-    type: 'SIGN_IN',
+    type: GoogleAuthActionsTypes.SIGN_IN,
+    payload: userId
   };
 };
 
 export const signOut = () => {
   return {
-    type: 'SIGN_OUT',
+    type: GoogleAuthActionsTypes.SIGN_OUT,
   };
 };
