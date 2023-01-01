@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { BrowserRouter, Route } from 'react-router-dom'
 import Header from "./Header";
-import StreamCreate from "./Streams/StreamCreate";
+import StreamCreate from "./Streams/StreamCreate/StreamCreate";
 import StreamDelete from "./Streams/StreamDelete";
 import StreamEdit from "./Streams/StreamEdit";
 import StreamList from "./Streams/StreamList";
